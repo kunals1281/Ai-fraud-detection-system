@@ -44,7 +44,9 @@ dist-ssr/
 # Editor & OS files
 .idea/
 *.iml
-.vscode/
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
 *.suo
 *.ntvs*
 *.njsproj

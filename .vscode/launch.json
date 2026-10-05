@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot - FraudDetectionApplication",
+      "request": "launch",
+      "mainClass": "com.frauddetection.FraudDetectionApplication",
+      "projectName": "ai-fraud-detection-system"
+    },
+    {
+      "name": "Launch Frontend in Browser",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/frontend"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Start Full Project (Backend + Frontend)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\run-all.bat",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "⚡ Start Java Backend (Spring Boot 3)",
+      "type": "shell",
+      "command": "cmd /c \"run-backend.bat\"",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "🎨 Start React Frontend (Vite Dev)",
+      "type": "shell",
+      "command": "cmd /c \"run-frontend.bat\"",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "🧪 Run Backend Unit & Concurrency Tests",
+      "type": "shell",
+      "command": "cmd /c \"C:\\Users\\Kunal\\.tools\\apache-maven-3.9.6\\bin\\mvn.cmd test\"",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📊 Open Review Presentation Deck",
+      "type": "shell",
+      "command": "cmd /c \"start presentation\\index.html\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

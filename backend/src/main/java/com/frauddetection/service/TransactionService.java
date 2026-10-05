@@ -30,6 +30,7 @@ public class TransactionService {
     private final AlgorithmModelRepository modelRepository;
     private final ExplainableAiExplainer explainer;
     private final ObjectMapper objectMapper;
+    private final com.frauddetection.concurrency.ThreadSafeVelocityTracker velocityTracker;
 
     @Autowired
     public TransactionService(TransactionRepository transactionRepository,
@@ -37,17 +38,26 @@ public class TransactionService {
                               SystemConfigRepository configRepository,
                               AlgorithmModelRepository modelRepository,
                               ExplainableAiExplainer explainer,
-                              ObjectMapper objectMapper) {
+                              ObjectMapper objectMapper,
+                              com.frauddetection.concurrency.ThreadSafeVelocityTracker velocityTracker) {
         this.transactionRepository = transactionRepository;
         this.alertRepository = alertRepository;
         this.configRepository = configRepository;
         this.modelRepository = modelRepository;
         this.explainer = explainer;
         this.objectMapper = objectMapper;
+        this.velocityTracker = velocityTracker;
     }
 
     @Transactional
     public TransactionResponse processTransaction(TransactionRequest request) {
+        if (request == null || request.getUserId() == null || request.getAmount() == null) {
+            throw new com.frauddetection.exception.InvalidTransactionException("Transaction payload must include valid userId and amount.");
+        }
+        if (request.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new com.frauddetection.exception.InvalidTransactionException("Transaction amount must be strictly greater than 0.");
+        }
+
         LocalDateTime now = LocalDateTime.now();
 
         // 1. Fetch user history (most recent first)
@@ -59,6 +69,9 @@ public class TransactionService {
 
         AlgorithmModel model = modelRepository.findByIsActiveTrue()
                 .orElse(null);
+
+        // Record in high-throughput thread-safe sliding window tracker
+        velocityTracker.recordAndGetVelocity(request.getUserId(), System.currentTimeMillis(), config.getVelocityWindowMinutes());
 
         // 3. Run AI Anomaly Evaluation
         AnomalyEvaluationResult evaluation = explainer.evaluate(

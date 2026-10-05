@@ -65,6 +65,17 @@ export default function Header({ activeRole, setActiveRole, pendingAlertsCount, 
             </button>
           </div>
 
+          {/* Presentation Deck Link */}
+          <a
+            href="/presentation.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-950/60 border border-indigo-700/40 text-indigo-300 hover:text-white hover:bg-indigo-900/60 hover:border-indigo-500 transition text-xs font-semibold shadow-sm shadow-indigo-950"
+            title="Open College Review Presentation Slides"
+          >
+            <span>📊 Presentation Deck</span>
+          </a>
+
           {/* Quick Refresh */}
           <button
             onClick={onRefresh}
