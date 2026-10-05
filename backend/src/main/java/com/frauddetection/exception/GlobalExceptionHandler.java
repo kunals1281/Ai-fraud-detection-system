@@ -1,7 +1,10 @@
 package com.frauddetection.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,13 +19,27 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
+        String msg = ex.getBindingResult().getFieldErrors().stream()
+                .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                .reduce((a, b) -> a + "; " + b)
+                .orElse("Validation failed");
+        log.warn("Validation error: {}", msg);
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, "ERR_VALIDATION_FAILED", msg);
+    }
+
     @ExceptionHandler(InvalidTransactionException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidTransaction(InvalidTransactionException ex) {
+        log.warn("Invalid transaction: {}", ex.getMessage());
         return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getErrorCode(), ex.getMessage());
     }
 
     @ExceptionHandler(ThresholdViolationException.class)
     public ResponseEntity<Map<String, Object>> handleThresholdViolation(ThresholdViolationException ex) {
+        log.warn("Threshold violation: {}", ex.getMessage());
         Map<String, Object> body = buildErrorMap(HttpStatus.UNPROCESSABLE_ENTITY, ex.getErrorCode(), ex.getMessage());
         body.put("riskScore", ex.getRiskScore());
         body.put("threshold", ex.getThreshold());
@@ -31,16 +48,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DatabaseOperationException.class)
     public ResponseEntity<Map<String, Object>> handleDatabaseException(DatabaseOperationException ex) {
+        log.error("Database operation failed: {}", ex.getMessage(), ex);
         return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getErrorCode(), "Database operation failed: " + ex.getMessage());
     }
 
     @ExceptionHandler(FraudDetectionException.class)
     public ResponseEntity<Map<String, Object>> handleGeneralFraudException(FraudDetectionException ex) {
+        log.error("Fraud detection error: {}", ex.getMessage(), ex);
         return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getErrorCode(), ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
+        log.error("Unhandled server exception: {}", ex.getMessage(), ex);
         return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "ERR_INTERNAL_SERVER", ex.getMessage());
     }
 
