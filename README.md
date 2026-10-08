@@ -22,11 +22,10 @@
 6. [Multithreading & Synchronization Engine](#-multithreading--synchronization-engine)
 7. [Java Servlet API & Web Integration](#-java-servlet-api--web-integration)
 8. [Dual User Portals & Features](#-dual-user-portals--features)
-9. [Presentation Deck & Submission Files](#-presentation-deck--submission-files)
-10. [Localhost Endpoints & How to Run Locally](#-localhost-endpoints--how-to-run-locally)
-11. [How to Run Live Through VS Code](#-how-to-run-live-through-vs-code)
-12. [Step-by-Step GitHub Push Guide](#-step-by-step-github-push-guide)
-13. [Automated Testing Suite](#-automated-testing-suite)
+9. [Localhost Endpoints & How to Run Locally](#-localhost-endpoints--how-to-run-locally)
+10. [How to Run Live Through VS Code](#-how-to-run-live-through-vs-code)
+11. [Step-by-Step GitHub Push Guide](#-step-by-step-github-push-guide)
+12. [Automated Testing Suite](#-automated-testing-suite)
 
 ---
 
@@ -239,20 +238,6 @@ Located in [`FraudDiagnosticServlet.java`](file:///C:/Users/Kunal/.gemini/antigr
 
 ---
 
-## 📊 Presentation Deck & Submission Files
-
-As required by the college guidelines (*"Submit a Presentation File with relevant visuals, diagrams, or screenshots"*):
-
-1. **Interactive HTML5 Presentation Slide Deck**:
-   - File: [`presentation/index.html`](file:///C:/Users/Kunal/.gemini/antigravity-ide/scratch/ai-fraud-detection-system/presentation/index.html)
-   - Live Web App URL: **`http://localhost:5173/presentation.html`** (or click **"📊 Presentation Deck"** in the top navigation bar).
-   - Features: Full-screen presentation mode, keyboard arrow navigation (`←`, `→`, `Space`), and a **"🖨️ Print / Save as PDF"** button to immediately export a PDF slide deck for college submission!
-2. **Markdown Presentation Slides**:
-   - File: [`presentation/slides.md`](file:///C:/Users/Kunal/.gemini/antigravity-ide/scratch/ai-fraud-detection-system/presentation/slides.md)
-   - Contains all slide text, speaker notes, and diagrams ready for Microsoft PowerPoint or Google Slides import.
-
----
-
 ## 🚀 Localhost Endpoints & How to Run Locally
 
 ### Prerequisites
@@ -273,7 +258,6 @@ This launches both the Spring Boot Backend and React Frontend in two dedicated t
 | Application / Service | Localhost URL | Description |
 | :--- | :--- | :--- |
 | **Frontend Application** | [http://localhost:5173](http://localhost:5173) | Modern Dark-Mode Fintech Portal |
-| **Interactive Presentation Deck** | [http://localhost:5173/presentation.html](http://localhost:5173/presentation.html) | 10-Slide Deck with Print-to-PDF |
 | **Backend REST API** | [http://localhost:8080](http://localhost:8080) | Spring Boot 3 Core Backend |
 | **Swagger / OpenAPI 3 UI** | [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) | Interactive API Testing Console |
 | **H2 Database Web Console** | [http://localhost:8080/h2-console](http://localhost:8080/h2-console) | `JDBC URL: jdbc:h2:mem:frauddetectiondb`, `User: sa`, `Password: [empty]` |
@@ -299,9 +283,7 @@ This launches both the Spring Boot Backend and React Frontend in two dedicated t
      - `⚡ Start Java Backend (Spring Boot 3)`
      - `🎨 Start React Frontend (Vite Dev)`
      - `🧪 Run Backend Unit & Concurrency Tests`
-     - `📊 Open Review Presentation Deck`
-4. **Live Server / Preview**:
-   - Right-click `presentation/index.html` -> **Open with Live Server** to view slides live inside VS Code.
+4. **Development & Debugging**:
    - Install the **"Extension Pack for Java"** in VS Code to get full breakpoint debugging and code navigation for all Java classes.
 
 ---
@@ -327,7 +309,7 @@ cd C:\Users\Kunal\.gemini\antigravity-ide\scratch\ai-fraud-detection-system
 # 2. Check git status
 git status
 
-# 3. Stage all source files, presentations, and configurations
+# 3. Stage all source files and configurations
 git add .
 
 # 4. Commit with descriptive semantic commit message

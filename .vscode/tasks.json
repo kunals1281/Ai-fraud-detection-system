@@ -49,15 +49,6 @@
         "cwd": "${workspaceFolder}/backend"
       },
       "problemMatcher": []
-    },
-    {
-      "label": "📊 Open Review Presentation Deck",
-      "type": "shell",
-      "command": "cmd /c \"start presentation\\index.html\"",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "problemMatcher": []
     }
   ]
 }
